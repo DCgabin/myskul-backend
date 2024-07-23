@@ -35,7 +35,15 @@ class ForgotPasswordController extends CoreController
     {
         DB::table('password_resets')->where(['email'=> $request->email])->delete();
 
-        $token = hash('sha256', $request->email);
+ $caracteres = '0123456789';//abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $longueurCaracteres = strlen($caracteres);
+    $token = '';
+    for ($i = 0; $i < 6; $i++) {
+        $token .= $caracteres[rand(0, $longueurCaracteres - 1)];
+    }
+       // $heure = date('H:i:s');
+       // $token = genererChaineAleatoire(6);
+       // $token = hash('sha256', $request->email.$heure);
         DB::table('password_resets')->insert([
             'email' => $request->email,
             'token' => $token,
@@ -46,7 +54,7 @@ class ForgotPasswordController extends CoreController
         if($user == null) {
             return $this->errorResponse(__("User not found"));
         }
-        Mail::send('authentication::forgot-password', ['url' => 'myskulapp://mobile.digihealthsarl.com/auth/reset?token='.$token.'&email='.$user->email, 'user' => $user, 'logo' => 'img/logo.png'],
+        Mail::send('authentication::forgot-password', ['url' => 'myskulapp://mobile.digihealthsarl.com/auth/reset?token='.$token.'&email='.$user->email,'token' => $token, 'user' => $user, 'logo' => 'img/logo.png'],
             function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Reset Password Notification');
@@ -61,4 +69,6 @@ class ForgotPasswordController extends CoreController
 
         return $this->successResponse(__('Password reset e-mail successfully send!'), ['token' => $token, 'user' => $user]);
     }
+    
+    
 }

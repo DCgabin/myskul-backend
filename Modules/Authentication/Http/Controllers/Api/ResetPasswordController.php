@@ -46,7 +46,7 @@ class ResetPasswordController extends CoreController
             ->first();
 
         if(!$updatePassword){
-            return $this->errorResponse(__('Password could not be reset!'), ['error' => 'Invalid token']);
+            return $this->errorResponse(__('Password could not be reset, incorrect email or token!'), ['error' => 'Invalid token']);
         }
 
         User::where('email', $request->email)

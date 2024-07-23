@@ -153,8 +153,8 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>
-                        <p style="margin: 0;"><a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}</a></p>
+                        <p style="margin: 0;">Si ca ne marche pas, copiez le token suivant et retourner dans l'application cliquez sur <strong>Récupérer mon mot de passe</strong>: token = {{$token}}</p>
+                  <!-- old       <p style="margin: 0;"><a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}</a></p>--> 
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -162,12 +162,17 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Ce lien de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>
+                        <p style="margin: 0;">Ce token de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>
                     </td>
                 </tr>
                 <!-- end copy -->
 
                 <!-- start copy -->
+                 <tr>
+                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                        <p style="margin: 0;">Si ca ne marche pas toujours pas, contactez le support par Whatsapp au numéro : 237656451666</p>
+                    </td>
+                </tr>
                 <tr>
                     <td align="right" bgcolor="#ffffff" style="padding: 0 54px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
                         <p style="margin: 0;">Cordialement,<b> MySkul</b></p>

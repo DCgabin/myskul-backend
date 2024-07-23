@@ -153,8 +153,8 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>
-                        <p style="margin: 0;"><a href="{{$url}}" target="_blank">{{$url}}</a></p>
+                        <p style="margin: 0;">Si ca ne marche pas, copiez le token suivant et retourner dans l'application cliquez sur <strong>Récupérer mon mot de passe</strong>: token = {{$token}}</p>
+
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -162,10 +162,16 @@
                 <!-- start copy -->
 {{--                <tr>--}}
 {{--                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">--}}
-{{--                        <p style="margin: 0;">Ce lien de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>--}}
+{{--                        <p style="margin: 0;">Ce token de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>--}}
 {{--                    </td>--}}
 {{--                </tr>--}}
                 <!-- end copy -->
+                
+                <tr>
+                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                        <p style="margin: 0;">Si ca ne marche pas toujours pas, contactez le support par Whatsapp au numéro : <a href="https://wa.me/237656451666" target="_blank">237656451666</a></p>
+                    </td>
+                </tr>
 
                 <!-- start copy -->
                 <tr>

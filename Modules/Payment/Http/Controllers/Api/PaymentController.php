@@ -97,7 +97,7 @@ class PaymentController extends CoreController
     }
 
 
-    public function callBack(Request $request){
+    /*public function callBack(Request $request){
         switch ($request->status) {
             case "SUCCESS": {
                 $payment = Payment::where('transactionID', $request->trid)->first();
@@ -150,6 +150,88 @@ class PaymentController extends CoreController
                 );
             };
             break;
+        }
+        return $this->successResponse("Callback", [
+            "res" => $payment
+        ]);
+    }*/
+    
+    public function callBack(Request $request){
+        $payment = Payment::where('transactionID', $request->trid)->first();
+        switch ($request->status) {
+            case "SUCCESS": {
+              //  $payment = Payment::where('transactionID', $request->trid)->first();
+                if ($payment->metadata['type'] == 'SUBSCRIPTION') {
+                    $subscription = UserAbonnement::create(
+                        array_filter([
+                            'user_id' => $payment->metadata['user_id'],
+                            'domain_id' => $payment->metadata['domain_id'],
+                            'abonnementType_id' => $payment->metadata['abonnementType_id'],
+                            'transactionID' => $payment->metadata['transactionID'],
+                            'buyerPhoneNumber' => $payment->metadata['buyerPhoneNumber'],
+                            'level_id' => $payment->metadata['level_id'],
+                            'speciality_id' => $payment->metadata['speciality_id'],
+                            'createdAt' => $payment->metadata['createdAt'],
+                            'expireAt' => $payment->metadata['expireAt'],
+                        ])
+                    );
+                }
+                if ($payment->metadata['type'] == 'PRODUCT') {
+                    $subscription = UserProduct::create(
+                        array_filter([
+                            'user_id' => $payment->metadata['user_id'],
+                            'product_id' => $payment->metadata['product_id'],
+                            'contactedPhoneNumber' => $payment->metadata['contactedPhoneNumber'],
+                            'createdAt' => $payment->metadata['createdAt'],
+                        ])
+                    );
+                }
+                FCMService::send(
+                    User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
+                    [
+                        "type" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "titre" => 'Paiement Succes',
+                        "contenu" => 'Votre transaction a ete effectuée avec succes',
+                    ]
+                );
+
+                $payment->update([
+                    'status' => 0
+                ]);
+            };
+            break;
+            case "ERROR": {
+             //   $payment = Payment::where('transactionID', $request->trid)->first();
+                FCMService::send(
+                    User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
+                    [
+                        "type" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "titre" => 'Paiement Echec',
+                        "contenu" => 'Votre transaction a echouée veuillez reessayer',
+                    ]
+                );
+
+                $payment->update([
+                    'status' => -1
+                ]);
+            };
+            break;
+             default : {
+                FCMService::send(
+                    User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
+                    [
+                        "type" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "titre" => 'Paiement Echec',
+                        "contenu" => 'Votre transaction a echouée veuillez reessayer',
+                    ]
+                );
+                   $payment->update([
+                       'status' => -1
+                   ]);
+               };
         }
         return $this->successResponse("Callback", [
             "res" => $payment

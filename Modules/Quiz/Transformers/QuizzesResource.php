@@ -30,6 +30,7 @@ class QuizzesResource extends JsonResource
             'speciality' => $this->speciality,
             'level' => $this->level,
             'category' => $this->category,
+            'file' => $this->file,
         ];
     }
 }
