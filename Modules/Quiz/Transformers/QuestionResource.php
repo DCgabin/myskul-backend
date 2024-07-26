@@ -23,6 +23,10 @@ class QuestionResource extends JsonResource
             'theme_id' => $this->theme_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'file' => $this->file,
+            'file_type' => $this->file_type,
+            'justification_file' => $this->justification_file,
+            'justification_file_type' => $this->justification_file_type,
 
             'answers' => PropositionResource::collection($this->answers),
             'theme' => $this->theme

@@ -19,7 +19,10 @@ class PropositionResource extends JsonResource
             'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'isCorrect' => (bool)$this->pivot->isCorrect,
+            'isCorrect' => (bool) $this->pivot->isCorrect,
+
+            'file' => $this->file,
+            'file_type' => $this->file_type,
         ];
     }
 }
